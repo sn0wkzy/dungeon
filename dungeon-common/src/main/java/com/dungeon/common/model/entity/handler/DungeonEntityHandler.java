@@ -30,7 +30,7 @@ import java.util.UUID;
 @Data
 public abstract class DungeonEntityHandler {
 
-    public final EntityType entityType;
+    private final EntityType entityType;
 
     public DungeonEntityHandler(EntityType entityType) {
         this.entityType = entityType;

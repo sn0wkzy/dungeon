@@ -48,7 +48,7 @@ public final class TotemDungeonEntityHandler extends DungeonEntityHandler {
 
         final double newHealth = currentHealth - finalDamage;
         if (newHealth <= 0 || dungeonWaveEntity.isDead()) {
-            dungeonContext.addKilledMob(dungeonWaveEntity.entityType);
+            dungeonContext.addKilledMob(dungeonWaveEntity.getEntityType());
 
             entityScanner.removeFirst();
             dungeonWave.killEntity(dungeonWaveEntity);

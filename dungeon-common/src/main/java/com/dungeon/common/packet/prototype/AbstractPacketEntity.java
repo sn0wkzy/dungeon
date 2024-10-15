@@ -11,6 +11,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDe
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityMetadata;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSpawnEntity;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 
 import java.util.LinkedList;
@@ -19,14 +20,14 @@ import java.util.UUID;
 
 import static com.dungeon.common.keys.DungeonKeys.PACKET_EVENTS_API;
 
+@Getter
 public abstract class AbstractPacketEntity {
 
+    private final int entityId = SpigotReflectionUtil.generateEntityId();
+    private final LinkedList<EntityData> metaDatas = new LinkedList<>();
 
-    public final int entityId = SpigotReflectionUtil.generateEntityId();
-    public final LinkedList<EntityData> metaDatas = new LinkedList<>();
-
-    public final EntityType entityType;
-    public final Vector3d location;
+    private final EntityType entityType;
+    private final Vector3d location;
 
     protected AbstractPacketEntity(EntityType entityType, Vector3d location) {
         this.entityType = entityType;

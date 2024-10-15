@@ -39,7 +39,7 @@ public class EntityScanner {
                     if (!canAttack(dungeonEntityInstance.getCurrentPosition(), radius) || hasEntity(dungeonEntityInstance.getEntityId()))
                         return;
 
-                    toAttack.add(dungeonEntityInstance.entityId);
+                    toAttack.add(dungeonEntityInstance.getEntityId());
                 });
 
         lastScan = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(2);

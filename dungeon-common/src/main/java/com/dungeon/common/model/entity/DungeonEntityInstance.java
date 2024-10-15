@@ -29,22 +29,22 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class DungeonEntityInstance {
 
-    public final int entityId;
-    public final EntityType entityType;
-    public final DungeonEntityHandler dungeonEntityHandler;
+    private final int entityId;
+    private final EntityType entityType;
+    private final DungeonEntityHandler dungeonEntityHandler;
 
-    public final DungeonEntityRarity dungeonEntityRarity;
-    public final DungeonEntityType dungeonEntityType;
-    public final DungeonEntityStats dungeonEntityStats;
+    private final DungeonEntityRarity dungeonEntityRarity;
+    private final DungeonEntityType dungeonEntityType;
+    private final DungeonEntityStats dungeonEntityStats;
 
-    public double health;
-    public double maxHealth;
-    public double finalDamage;
+    private double health;
+    private double maxHealth;
+    private double finalDamage;
 
-    public Vector3d currentPosition;
+    private Vector3d currentPosition;
 
-    public long hitDelay = 0L;
-    public final LinkedList<Vector3d> positions = new LinkedList<>();
+    private long hitDelay = 0L;
+    private final LinkedList<Vector3d> positions = new LinkedList<>();
 
     public DungeonEntityInstance(EntityType entityType, DungeonEntityHandler dungeonEntityHandler, Vector3d currentPosition) {
         this.entityId = SpigotReflectionUtil.generateEntityId();

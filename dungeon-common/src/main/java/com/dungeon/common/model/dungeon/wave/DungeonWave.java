@@ -60,7 +60,7 @@ public class DungeonWave {
             final DungeonEntityInstance dungeonEntityInstance = new DungeonEntityInstance(dungeonEntityHandler.getEntityType(), dungeonEntityHandler, spawnLocation);
 
             dungeonEntityHandler.spawn(dungeonContext, dungeonEntityInstance);
-            entities.put(dungeonEntityInstance.entityId, dungeonEntityInstance);
+            entities.put(dungeonEntityInstance.getEntityId(), dungeonEntityInstance);
         }
     }
 
