@@ -1,0 +1,4 @@
+name: Dungeon
+version: 1.0.0
+main: com.dungeon.spigot.DungeonPlugin
+api-version: 1.19
