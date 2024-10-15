@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import java.util.Set;
 
 public final class BlockDisplayEntity extends DisplayPacketEntity {
-    public BlockDisplayEntity(Set<Player> viewers, Vector3d location) {
-        super(viewers, EntityTypes.BLOCK_DISPLAY, location);
+    public BlockDisplayEntity(Vector3d location) {
+        super(EntityTypes.BLOCK_DISPLAY, location);
     }
 
     public void setBlock(int blockId) {

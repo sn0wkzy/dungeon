@@ -1,5 +1,6 @@
 package com.dungeon.common.packet.impl.display;
 
+import com.dungeon.common.model.dungeon.DungeonContext;
 import com.dungeon.common.packet.prototype.impl.DisplayPacketEntity;
 import com.github.retrooper.packetevents.protocol.entity.data.EntityDataTypes;
 import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
@@ -12,18 +13,18 @@ import java.util.Set;
 
 public final class TextDisplayEntity extends DisplayPacketEntity {
 
-    public TextDisplayEntity(Set<Player> viewers, Vector3d location) {
-        super(viewers, EntityTypes.TEXT_DISPLAY, location);
+    public TextDisplayEntity(Vector3d location) {
+        super(EntityTypes.TEXT_DISPLAY, location);
     }
 
-    public void spawn(Vector3f scale, Float height, Float width) {
-        super.spawn();
+    public void spawn(DungeonContext dungeonContext, Vector3f scale, Float height, Float width) {
+        super.spawn(dungeonContext);
 
         setScale(scale);
         setHeight(height);
         setWidth(width);
 
-        update();
+        update(dungeonContext);
     }
 
     public void setTitle(Component component) {

@@ -12,8 +12,8 @@ import java.util.Set;
 
 public class DisplayPacketEntity extends AbstractPacketEntity {
 
-    public DisplayPacketEntity(Set<Player> viewers, EntityType entityType, Vector3d location) {
-        super(viewers, entityType, location);
+    public DisplayPacketEntity( EntityType entityType, Vector3d location) {
+        super(entityType, location);
     }
 
     public void setInterpolationDelay(int interpolationDelay) {

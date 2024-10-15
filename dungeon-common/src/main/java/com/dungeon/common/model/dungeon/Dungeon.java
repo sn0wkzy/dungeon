@@ -73,11 +73,11 @@ public class Dungeon implements DungeonContext {
 
     @Contract(" -> new")
     private @NotNull TextDisplayEntity createTextDisplay() {
-        return new TextDisplayEntity(getPlayers(), TOTEM_DEFAULT_LOCATION.add(0.0, 5.0, 0.0));
+        return new TextDisplayEntity(TOTEM_DEFAULT_LOCATION.add(0.0, 5.0, 0.0));
     }
 
     private void initializeDisplayEntity() {
-        displayEntity.spawn(new Vector3f(7, 7, 7), 100f, 100f);
+        displayEntity.spawn(this, new Vector3f(7, 7, 7), 100f, 100f);
 
         updateDisplay();
         showBossBarToPlayers();
@@ -99,7 +99,7 @@ public class Dungeon implements DungeonContext {
                 MiniMessage.miniMessage().deserialize("<gradient:#2a57aa:#62a0fc>Wave " + waveId + "</gradient>"),
                 MiniMessage.miniMessage().deserialize("<color:#62a0fc>Successfully</color>")
         );
-        getPlayers().forEach(player -> player.showTitle(title));
+        getViewers().forEach(player -> player.showTitle(title));
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Dungeon implements DungeonContext {
     public void updateDisplay() {
         displayEntity.setTitle(MiniMessage.miniMessage()
                 .deserialize("<gradient:#2a57aa:#62a0fc>" + dungeonWave.getAliveEntitiesCount() + " Mobs vivos</gradient>"));
-        displayEntity.update();
+        displayEntity.update(this);
     }
 
     private void updateBossBar() {
@@ -147,11 +147,11 @@ public class Dungeon implements DungeonContext {
 
     @Override
     public void broadcastPacket(PacketWrapper<?> packet) {
-        getPlayers().forEach(player -> PACKET_EVENTS_API.getPlayerManager().sendPacket(player, packet));
+        getViewers().forEach(player -> PACKET_EVENTS_API.getPlayerManager().sendPacket(player, packet));
     }
 
     @Override
-    public Set<Player> getPlayers() {
+    public Set<Player> getViewers() {
         final List<String> playerNames = new ArrayList<>(friends);
         playerNames.add(owner);
 
@@ -162,10 +162,10 @@ public class Dungeon implements DungeonContext {
     }
 
     private void showBossBarToPlayers() {
-        getPlayers().forEach(player -> player.showBossBar(bossBar));
+        getViewers().forEach(player -> player.showBossBar(bossBar));
     }
 
     private void notifyPlayers(String message) {
-        getPlayers().forEach(player -> player.sendMessage(message));
+        getViewers().forEach(player -> player.sendMessage(message));
     }
 }

@@ -28,10 +28,10 @@ public class Barrier {
         this.dungeonContext = dungeonContext;
         this.location = location;
 
-        textDisplayEntity = new TextDisplayEntity(dungeonContext.getPlayers(), location.add(0.5, 1.0, 0.5));
+        textDisplayEntity = new TextDisplayEntity(location.add(0.5, 1.0, 0.5));
         initializeDisplayText();
 
-        this.blockDisplayEntity = new BlockDisplayEntity(dungeonContext.getPlayers(), location);
+        this.blockDisplayEntity = new BlockDisplayEntity(location);
         initializeDisplayBlock();
     }
 
@@ -49,24 +49,24 @@ public class Barrier {
 
         dungeonContext.removeBarrier(this);
 
-        textDisplayEntity.despawn();
-        blockDisplayEntity.despawn();
+        textDisplayEntity.despawn(dungeonContext);
+        blockDisplayEntity.despawn(dungeonContext);
     }
 
     public void initializeDisplayText() {
-        textDisplayEntity.spawn(new Vector3f(1, 1, 1), 100F, 100F);
+        textDisplayEntity.spawn(dungeonContext, new Vector3f(1, 1, 1), 100F, 100F);
         updateDisplayText();
     }
 
     public void updateDisplayText() {
         textDisplayEntity.setTitle(MiniMessage.miniMessage().deserialize("<color:#ff3300>❤ " + health + "</color>"));
-        textDisplayEntity.update();
+        textDisplayEntity.update(dungeonContext);
     }
 
     public void initializeDisplayBlock() {
-        blockDisplayEntity.spawn();
+        blockDisplayEntity.spawn(dungeonContext);
 
         blockDisplayEntity.setBlock(StateTypes.IRON_BARS.createBlockState().getGlobalId());
-        blockDisplayEntity.update();
+        blockDisplayEntity.update(dungeonContext);
     }
 }

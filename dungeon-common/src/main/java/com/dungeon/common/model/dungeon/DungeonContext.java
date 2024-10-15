@@ -32,7 +32,7 @@ public interface DungeonContext {
 
     void broadcastPacket(PacketWrapper<?> packetWrapper);
 
-    Set<Player> getPlayers();
+    Set<Player> getViewers();
 
     void updateDisplay();
 }

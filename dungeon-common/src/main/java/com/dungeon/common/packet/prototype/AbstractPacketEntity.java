@@ -1,5 +1,6 @@
 package com.dungeon.common.packet.prototype;
 
+import com.dungeon.common.model.dungeon.DungeonContext;
 import com.github.retrooper.packetevents.protocol.entity.data.EntityData;
 import com.github.retrooper.packetevents.protocol.entity.data.EntityDataType;
 import com.github.retrooper.packetevents.protocol.entity.data.EntityDataTypes;
@@ -11,11 +12,9 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEn
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSpawnEntity;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import net.kyori.adventure.text.Component;
-import org.bukkit.entity.Player;
 
 import java.util.LinkedList;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 import static com.dungeon.common.keys.DungeonKeys.PACKET_EVENTS_API;
@@ -26,18 +25,16 @@ public abstract class AbstractPacketEntity {
     public final int entityId = SpigotReflectionUtil.generateEntityId();
     public final LinkedList<EntityData> metaDatas = new LinkedList<>();
 
-    public final Set<Player> viewers;
     public final EntityType entityType;
     public final Vector3d location;
 
-    protected AbstractPacketEntity(Set<Player> viewers, EntityType entityType, Vector3d location) {
-        this.viewers = viewers;
+    protected AbstractPacketEntity(EntityType entityType, Vector3d location) {
         this.entityType = entityType;
         this.location = location;
     }
 
-    public void spawn() {
-        broadcastPacket(createSpawnPacket());
+    public void spawn(DungeonContext dungeonContext) {
+        broadcastPacket(dungeonContext, createSpawnPacket());
     }
 
     private WrapperPlayServerSpawnEntity createSpawnPacket() {
@@ -54,12 +51,12 @@ public abstract class AbstractPacketEntity {
         );
     }
 
-    public void despawn() {
-        broadcastPacket(createDespawnPacket());
+    public void despawn(DungeonContext dungeonContext) {
+        broadcastPacket(dungeonContext, createDespawnPacket());
     }
 
-    public void update() {
-        broadcastPacket(createUpdatePacket());
+    public void update(DungeonContext dungeonContext) {
+        broadcastPacket(dungeonContext, createUpdatePacket());
         metaDatas.clear();
     }
 
@@ -87,8 +84,8 @@ public abstract class AbstractPacketEntity {
         addMetaData(0, EntityDataTypes.BYTE, 0x20);
     }
 
-    protected void broadcastPacket(PacketWrapper<?> packetWrapper) {
-        viewers.forEach(player -> PACKET_EVENTS_API.getPlayerManager().sendPacket(player, packetWrapper));
+    protected void broadcastPacket(DungeonContext dungeonContext, PacketWrapper<?> packetWrapper) {
+        dungeonContext.getViewers().forEach(player -> PACKET_EVENTS_API.getPlayerManager().sendPacket(player, packetWrapper));
 
     }
 }
