@@ -114,12 +114,18 @@ public class Dungeon implements DungeonContext {
 
     @Override
     public void addBarrier(Barrier barrier) {
-        this.barriers.put(barrier.getLocation(), barrier);
+        final Vector3d location = barrier.getLocation();
+        final Vector3d correctLocation = location.add(0.5, 0.0, 0.5);
+
+        this.barriers.put(correctLocation, barrier);
     }
 
     @Override
     public void removeBarrier(@NotNull Barrier barrier) {
-        this.barriers.remove(barrier.getLocation());
+        final Vector3d location = barrier.getLocation();
+        final Vector3d correctLocation = location.add(0.5, 0.0, 0.5);
+
+        this.barriers.remove(correctLocation);
     }
 
     @Override
